@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar, LogBox } from 'react-native';
-import { NewList } from './src/pages/NewList' 
+import Routes from './src/routes';
+import { Home } from './src/pages/Home';
 
 const App = () => {
 
@@ -8,7 +9,7 @@ const App = () => {
   StatusBar.setHidden(true)
 
   return (
-    <NewList/>
+    <Routes/>
   );
 };
 
