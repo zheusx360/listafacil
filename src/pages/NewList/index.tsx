@@ -27,6 +27,20 @@ export const NewList = () => {
    const [itens, setItens] = useState([])
    const [exData, setExData] = useState(true)
    const [total, setTotal] = useState('')
+   const [initial, setInitial] = useState()
+
+   let listMock = [
+      [{title:'Primeira Lista'},[{id:'1', name:'Banana', value: '1.00', quantidade:'3', select:true}]],
+      [{title:'Segunda Lista'},[{id:'2', name:'Limao', value:+'3.00', quantidade:'5', select:true}]],
+   ]
+   
+   useEffect(()=>{
+      const init = listMock[0][1]
+      setTimeout(() => {
+         setItens(init)
+      }, .1);
+   },[])
+
 
    useEffect(() => {
       setItens(itens)
@@ -35,9 +49,10 @@ export const NewList = () => {
 
 
    const AddValue = () => {
-      const newId = id + 1
-      setId(newId)
+      const newId = nameItem + Math.floor(Math.random() * 99999);
       let addItem = [...itens, { id: newId, name: nameItem, value: (value * multiply).toFixed(2), quantidade: multiply, select: true }]
+      listMock[0][1] = addItem
+      //update lista
       setItens(addItem)
       setValue(0)
       setNameItem('')
@@ -99,7 +114,7 @@ export const NewList = () => {
       <Container>
          <Topo>
             <CustomText weight={800} size={25}>
-               Lista Fácil.
+               {listMock[0][0].title}
             </CustomText>
          </Topo>
          <ContainerTop>
