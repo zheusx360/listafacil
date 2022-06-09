@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Alert, FlatList, TouchableOpacity, SectionList } from 'react-native'
 import CurrencyInput from 'react-native-currency-input';
+import { IdGenerator } from "../../components/IdGenerator";
 import {
    Container,
    Background,
@@ -20,7 +21,6 @@ import {
 
 export const NewList = () => {
 
-   const [id, setId] = useState(0)
    const [value, setValue] = useState(0)
    const [nameItem, setNameItem] = useState('')
    const [multiply, setMultiply] = useState(1)
@@ -30,26 +30,24 @@ export const NewList = () => {
    const [initial, setInitial] = useState()
 
    let listMock = [
-      [{title:'Primeira Lista'},[{id:'1', name:'Banana', value: '1.00', quantidade:'3', select:true}]],
-      [{title:'Segunda Lista'},[{id:'2', name:'Limao', value:+'3.00', quantidade:'5', select:true}]],
+      [{ title: 'Primeira Lista' }, [{ id: '1', name: 'Banana', value: '1.00', quantidade: '3', select: true }]],
+      [{ title: 'Segunda Lista' }, [{ id: '2', name: 'Limao', value: +'3.00', quantidade: '5', select: true }]],
    ]
-   
-   useEffect(()=>{
+
+   useEffect(() => {
       const init = listMock[0][1]
       setTimeout(() => {
          setItens(init)
       }, .1);
-   },[])
-
+   }, [])
 
    useEffect(() => {
       setItens(itens)
       setTotal(itens.filter(i => i.select === true).map(item => item.value).reduce((prev, curr) => +prev + +curr, 0).toFixed(2))
-   }, [itens,exData])
-
+   }, [itens, exData])
 
    const AddValue = () => {
-      const newId = nameItem + Math.floor(Math.random() * 99999);
+      const newId = IdGenerator()
       let addItem = [...itens, { id: newId, name: nameItem, value: (value * multiply).toFixed(2), quantidade: multiply, select: true }]
       listMock[0][1] = addItem
       //update lista
@@ -59,13 +57,11 @@ export const NewList = () => {
       setMultiply(1)
       console.log(addItem, multiply)
    }
-
    const DeleteItem = (item) => {
       Alert.alert(
          'Deletar item?',
          `Deseja remover o item ${item.name}`,
          [
-            // The "Yes" button
             {
                text: "Sim",
                onPress: () => {
@@ -78,12 +74,10 @@ export const NewList = () => {
          ]
       );
    }
-
    const selectItem = (item) => {
       item.select = !item.select;
       setExData(!exData)
    }
-
    const renderBox = (item) => {
       return (
          <TouchableOpacity onPress={() => selectItem(item)}>
@@ -109,7 +103,6 @@ export const NewList = () => {
          </TouchableOpacity>
       )
    }
-
    return (
       <Container>
          <Topo>
@@ -173,7 +166,6 @@ export const NewList = () => {
          }
       </Container>
    )
-
 }
 
 const styleFlat = {
