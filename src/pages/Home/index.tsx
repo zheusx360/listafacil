@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useEffect } from "react"
+import AsyncStorage from '@react-native-community/async-storage';
 import { IdGenerator } from "../../components/IdGenerator";
 import {
    Alert, FlatList,
@@ -34,9 +34,12 @@ export const Home = () => {
    const [nameList, setNameList] = useState('')
    const [showModal, setShowModal] = useState(false)
 
+   useEffect(()=>{
+      getList()
+   })
+
 
    const NewList = () => {
-
       if (nameList === '') {
          Alert.alert('Atenção', 'A lista deve ter um nome.')
          return
@@ -44,9 +47,39 @@ export const Home = () => {
       let listTmp = [...list, { nameList: nameList, id: IdGenerator() }]
       console.log('Lista: ', listTmp)
       setList(listTmp)
+      saveList(listTmp)
       setNameList('')
       setShowModal(false)
    }
+
+   const saveList = async (value) => {
+      try {
+        const jsonValue = JSON.stringify(value)
+        await AsyncStorage.setItem('@minhaLista', jsonValue)
+      } catch (e) {
+        // saving error
+      }
+    }
+
+    const getList = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('@minhaLista')
+        const lis = jsonValue != null ? JSON.parse(jsonValue) : [];
+        setList(lis)
+      } catch(e) {
+        // error reading value
+      }
+    }
+
+    const removeItemValue = async (key) => {
+      try {
+          await AsyncStorage.removeItem(key);
+          return true;
+      }
+      catch(exception) {
+          return false;
+      }
+    }
 
    const renderItem = (item) => {
       return (
@@ -73,7 +106,10 @@ export const Home = () => {
             {
                text: "Sim",
                onPress: () => {
-                  setList(list.filter(i => i.id !== item.id))
+                  const l = list.filter(i => i.id !== item.id)
+                  setList(l)
+                  saveList(l)
+                  removeItemValue(item.id)
                }
             },
             {
