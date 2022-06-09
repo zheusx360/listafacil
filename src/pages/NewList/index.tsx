@@ -19,7 +19,7 @@ import {
    ViewValue
 } from "./newListStyle";
 
-export const NewList = () => {
+export const NewList = ({route, navigate}) => {
 
    const [value, setValue] = useState(0)
    const [nameItem, setNameItem] = useState('')
@@ -28,6 +28,9 @@ export const NewList = () => {
    const [exData, setExData] = useState(true)
    const [total, setTotal] = useState('')
    const [initial, setInitial] = useState()
+
+   const { id, listName } = route.params;
+   console.log('Params', id, listName)
 
    let listMock = [
       [{ title: 'Primeira Lista' }, [{ id: '1', name: 'Banana', value: '1.00', quantidade: '3', select: true }]],
@@ -107,7 +110,7 @@ export const NewList = () => {
       <Container>
          <Topo>
             <CustomText weight={800} size={25}>
-               {listMock[0][0].title}
+               {listName}
             </CustomText>
          </Topo>
          <ContainerTop>

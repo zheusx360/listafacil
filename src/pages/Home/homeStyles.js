@@ -140,4 +140,20 @@ export const BoxItem = styled(LinearGradient).attrs({
   border-width: 2;
   border-color: ${props => props.color || '#941'};
 `
+export const ButtonDelete = styled.TouchableOpacity`
+position: absolute;
+width: 35;
+height: 40;
+border-radius: 12;
+top: 20%;
+bottom: 0;
+left: 112%;
+right: 0;
+background-color: #333;
+justify-content: center;
+align-items: center;
+border-width: 1;
+border-color: #721;
+`
+
 
