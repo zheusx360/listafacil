@@ -3,6 +3,7 @@ import { Alert, FlatList, TouchableOpacity, SectionList } from 'react-native'
 import CurrencyInput from 'react-native-currency-input';
 import { IdGenerator } from "../../components/IdGenerator";
 import AsyncStorage from '@react-native-community/async-storage';
+import { saveList, getList } from "../../components/saveData";
 import {
    Container,
    Background,
@@ -33,28 +34,10 @@ export const NewList = ({route, navigate}) => {
    const { id, listName } = route.params;
 
    useEffect(() => {
-      getList()
+      getList(setItens, id)
+      console.log('Init')
    }, [])
 
-   const saveList = async (value) => {
-      console.log('SAVE')
-      try {
-        const jsonValue = JSON.stringify(value)
-        await AsyncStorage.setItem(id, jsonValue)
-      } catch (e) {
-        // saving error
-      }
-    }
-
-    const getList = async () => {
-      try {
-        const jsonValue = await AsyncStorage.getItem(id)
-        const lis = jsonValue != null ? JSON.parse(jsonValue) : [];
-        setItens(lis)
-      } catch(e) {
-        // error reading value
-      }
-    }
 
    useEffect(() => {
       setItens(itens)
@@ -65,7 +48,7 @@ export const NewList = ({route, navigate}) => {
       const newId = IdGenerator()
       let addItem = [...itens, { id: newId, name: nameItem, value: (value * multiply).toFixed(2), quantidade: multiply, select: true }]
       setItens(addItem)
-      saveList(addItem)
+      saveList(addItem, id)
       setValue(0)
       setNameItem('')
       setMultiply(1)
@@ -81,7 +64,7 @@ export const NewList = ({route, navigate}) => {
                onPress: () => {
                   const i = itens.filter(i => i.id !== item.id)
                   setItens(i)
-                  saveList(i)
+                  saveList(i, id)
                }
             },
             {
