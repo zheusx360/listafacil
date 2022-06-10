@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Alert, FlatList, TouchableOpacity, SectionList } from 'react-native'
 import CurrencyInput from 'react-native-currency-input';
 import { IdGenerator } from "../../components/IdGenerator";
-import AsyncStorage from '@react-native-community/async-storage';
 import { saveList, getList } from "../../components/saveData";
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useNavigation } from "@react-navigation/native"
 import {
    Container,
    Background,
@@ -30,6 +31,8 @@ export const NewList = ({route, navigate}) => {
    const [exData, setExData] = useState(true)
    const [total, setTotal] = useState('')
    const [initial, setInitial] = useState()
+
+   const navigation = useNavigation();
 
    const { id, listName } = route.params;
 
@@ -105,6 +108,9 @@ export const NewList = ({route, navigate}) => {
    return (
       <Container>
          <Topo>
+            <TouchableOpacity style={{position:'absolute', left: '4%'}} onPress={()=> navigation.navigate('Home')}>
+              <Icons name='chevron-left' color={'#ccc'} size={40} />
+            </TouchableOpacity>
             <CustomText weight={800} size={25}>
                {listName}
             </CustomText>
@@ -158,7 +164,8 @@ export const NewList = ({route, navigate}) => {
          </Background>
          {itens.length > 0 &&
             <ViewValue>
-               <CustomText size={'18px'} weight={600}>
+               <Icons name='cart-outline' color={'#fff'} size={22}/>
+               <CustomText marginL={10} size={'18px'} weight={600}>
                   Valor Total: {total}
                </CustomText>
             </ViewValue>

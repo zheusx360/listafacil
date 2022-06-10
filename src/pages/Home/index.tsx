@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { saveList, getList, removeList } from "../../components/saveData";
 import { IdGenerator } from "../../components/IdGenerator";
+import Icon from 'react-native-vector-icons/Octicons'
+import IconI from 'react-native-vector-icons/Ionicons'
 import {
    Alert, FlatList,
    Modal,
@@ -34,6 +36,7 @@ export const Home = () => {
    const [nameList, setNameList] = useState('')
    const [showModal, setShowModal] = useState(false)
    const [teste, setTeste] = useState()
+   const [data, setData] = useState('')
 
    useEffect(()=>{
       getList(setList, '@minhaLista')
@@ -52,10 +55,35 @@ export const Home = () => {
       setNameList('')
       setShowModal(false)
    }
+
+   const OpenModal = (type = 'normal', item = 'Edit') => {
+      if(type === 'edit'){
+         setData(item)
+      }
+      console.log('Noame: ', data.nameList)
+      console.log('Setou')
+      setShowModal(true)
+   }
+
+   const editNameList = () => {
+      if (nameList === '') {
+         Alert.alert('Atenção', 'A lista deve ter um nome.')
+         return
+      }
+      let rename = list.filter(n => n.id === data.id, data.nameList = nameList)
+      saveList(list,'@minhaLista')
+      setData('')
+      setShowModal(false)
+      console.log(list)
+   }
+
    const renderItem = (item) => {
       return (
          <TouchableOpacity onPress={()=> navigation.navigate('NewList', {id: item.id, listName: item.nameList })}>
             <BoxItem top={12}>
+               <TouchableOpacity style={{position:'absolute', right:'6%'}} onPress={()=> OpenModal('edit',item)}>
+                  <IconI name='menu' size={25} color={'#777'}/>
+               </TouchableOpacity>
                <CustomText size={20} weight={800}>
                   {item.nameList}
                </CustomText>
@@ -95,6 +123,7 @@ export const Home = () => {
    return (
       <Container style={{ flex: 1 }}>
          <HeaderBox>
+            <Icon name='checklist' size={75} color={'rgba(155,155,155,.2)'} style={{position:'absolute'}}/>
             <CustomText size={25} weight={800}>MINHAS LISTAS</CustomText>
          </HeaderBox>
          <Modal
@@ -106,10 +135,10 @@ export const Home = () => {
                <ItemModal>
                   <ModalContent>
                      <CustomText size={20} weight={800}>
-                        Criar nova lista
+                        {data.nameList !== '' ? 'Editar Nome da Lista' : 'Criar nova lista'}
                      </CustomText>
                      <CustomText size={16} weight={800} marginT={15} marginB={4}>
-                        Nome da Lista
+                        {data.nameList !== '' ? 'Novo Nome' : 'Nome da Lista'}
                      </CustomText>
                      <CustomInput width={'85%'} maxLength={25} onChangeText={(text) => setNameList(text)} />
                      <CustomView marginT={18} height={50}>
@@ -119,7 +148,7 @@ export const Home = () => {
                            </CustomText>
                         </CustomButton>
                         <CustomButton width={'38%'} marginL={4}>
-                           <CustomText size={18} weight={700} color={'#5a5'} onPress={() => NewList()}>
+                           <CustomText size={18} weight={700} color={'#5a5'} onPress={() => {data.id !== '' ? editNameList() : NewList()}}>
                               Salvar
                            </CustomText>
                         </CustomButton>

@@ -141,6 +141,7 @@ export const ViewValue = styled.View`
   width: 100%;
   height: 45px;
   justify-content: center;
+  flex-direction: row;
   align-items: center;
   position: absolute;
   background-color: #111;
