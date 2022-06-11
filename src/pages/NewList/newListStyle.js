@@ -150,3 +150,15 @@ export const ViewValue = styled.View`
   left: 0;
   right: 0;
 `
+export const CustomView = styled.View`
+width: ${props => props.width || '100%'};
+height: ${props => props.height || '100%'};
+justify-content: center;
+align-items: center;
+flex-direction: ${props => props.direction || 'row'};
+background-color: ${props => props.bgColor || 'transparent'};
+margin-left: ${props => props.marginL || 0};
+margin-right: ${props => props.marginR || 0};
+margin-top: ${props => props.marginT || 0};
+margin-bottom: ${props => props.marginB || 0};
+`

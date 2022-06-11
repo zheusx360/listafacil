@@ -32,7 +32,7 @@ export const Background = styled(LinearGradient).attrs({
    start: { x: 0, y: 10 },
    end: { x: 1, y: 0 },
   })`
-   height: 80%;
+   height: 74%;
    width: 100%;
    border-top-left-radius: 30px;
    border-top-right-radius: 30px;
@@ -41,7 +41,7 @@ export const Background = styled(LinearGradient).attrs({
 
 export const BottomPlus = styled.View`
  width: 100%;
- height: 6%;
+ height: 5%;
  justify-content: center;
  align-items: center;
  background-color: #333;
@@ -154,6 +154,18 @@ justify-content: center;
 align-items: center;
 border-width: 1;
 border-color: #721;
+`
+
+export const ExitButtom = styled.TouchableOpacity`
+width: 55px;
+height: 55px;
+border-radius: 7px;
+position: absolute;
+right: 4%;
+top: 1%;
+flex-direction: column;
+justify-content: center;
+align-items: center;
 `
 
 

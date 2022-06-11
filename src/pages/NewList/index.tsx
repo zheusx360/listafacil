@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Alert, FlatList, TouchableOpacity, SectionList } from 'react-native'
+import { Alert, FlatList, TouchableOpacity, BackHandler } from 'react-native'
 import CurrencyInput from 'react-native-currency-input';
 import { IdGenerator } from "../../components/IdGenerator";
 import { saveList, getList } from "../../components/saveData";
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useNavigation } from "@react-navigation/native"
+import { BannerAd, BannerAdSize } from "@react-native-admob/admob";
 import {
    Container,
    Background,
@@ -19,7 +20,8 @@ import {
    ContainerCurrency,
    CustomButton,
    CustomContainer,
-   ViewValue
+   ViewValue,
+   CustomView
 } from "./newListStyle";
 
 export const NewList = ({route, navigate}) => {
@@ -32,6 +34,7 @@ export const NewList = ({route, navigate}) => {
    const [total, setTotal] = useState('')
    const [initial, setInitial] = useState()
 
+
    const navigation = useNavigation();
 
    const { id, listName } = route.params;
@@ -41,6 +44,20 @@ export const NewList = ({route, navigate}) => {
       console.log('Init')
    }, [])
 
+   useEffect(() => {
+      const backAction = () => {
+         navigation.navigate('Home')
+         return true;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+         "hardwareBackPress",
+         backAction
+      );
+
+      return () => backHandler.remove();
+   }, []);
+
 
    useEffect(() => {
       setItens(itens)
@@ -48,6 +65,10 @@ export const NewList = ({route, navigate}) => {
    }, [itens, exData])
 
    const AddValue = () => {
+      if(nameItem === ''){
+         Alert.alert('Atenção', 'O item deve ter um nome.')
+         return
+      }
       const newId = IdGenerator()
       let addItem = [...itens, { id: newId, name: nameItem, value: (value * multiply).toFixed(2), quantidade: multiply, select: true }]
       setItens(addItem)
@@ -106,6 +127,7 @@ export const NewList = ({route, navigate}) => {
       )
    }
    return (
+      <>
       <Container>
          <Topo>
             <TouchableOpacity style={{position:'absolute', left: '4%'}} onPress={()=> navigation.navigate('Home')}>
@@ -155,6 +177,11 @@ export const NewList = ({route, navigate}) => {
             </Row>
          </ContainerTop>
          <Background>
+            {itens.length < 1 &&
+              <CustomView height={'100%'}>
+                 <CustomText size={23} weight={600} align={'center'}>Não existem itens criados!</CustomText>
+              </CustomView>
+            }
             <FlatList
                contentContainerStyle={styleFlat}
                data={itens}
@@ -171,6 +198,14 @@ export const NewList = ({route, navigate}) => {
             </ViewValue>
          }
       </Container>
+       <BannerAd
+       unitId="ca-app-pub-1849627700418283/7381255206"
+       size={BannerAdSize.ADAPTIVE_BANNER}
+       requestOptions={{
+         requestNonPersonalizedAdsOnly: false
+       }}
+     />
+     </>
    )
 }
 
