@@ -36,7 +36,6 @@ export const Background = styled(LinearGradient).attrs({
    width: 100%;
    border-top-left-radius: 30px;
    border-top-right-radius: 30px;
-   padding-bottom: 7.5%;
 `;
 
 export const BottomPlus = styled.View`
@@ -55,7 +54,7 @@ export const ButtomPlus = styled.TouchableOpacity`
   border-radius: 32px;
   justify-content: center;
   align-items: center;
-  margin-bottom: 12%;
+  margin-bottom: 9.5%;
   border-width: 5;
   border-color: #111;
   background-color: #333;

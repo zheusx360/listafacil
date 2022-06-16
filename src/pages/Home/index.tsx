@@ -215,7 +215,7 @@ export const Home = () => {
             </BottomPlus>
          </Container>
          <BannerAd
-            unitId="ca-app-pub-1849627700418283/7381255206"
+            unitId="ca-app-pub-6519598545358317/7351149822"
             size={BannerAdSize.ADAPTIVE_BANNER}
             requestOptions={{
                requestNonPersonalizedAdsOnly: false

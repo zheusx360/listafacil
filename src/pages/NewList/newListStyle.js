@@ -73,7 +73,7 @@ export const BoxItem = styled(LinearGradient).attrs({
   justify-content: space-between;
   align-self: center;
   margin-top: ${props => props.top || 0};
-  width: 85%;
+  width: 78%;
   height: 85px;
   background-color: black;
   border-radius: 10px;
@@ -108,6 +108,8 @@ export const CustomText = styled.Text`
   padding-right: ${props => props.padR || 0};
   margin-left: ${props => props.marginL || 0};
   margin-right: ${props => props.marginR || 0};
+  margin-top: ${props => props.marginT || 0};
+  margin-bottom: ${props => props.marginB || 0};
 `
 export const BtAdd = styled.TouchableOpacity`
   width: ${props => props.size || '100%'};
@@ -126,6 +128,10 @@ export const CustomButton = styled.TouchableOpacity`
   height: ${props => props.height || '100%'};
   border-radius: ${props => props.radius || 0};
   align-self: ${props => props.align || 'auto'};
+  margin-left: ${props => props.marginL || 0};
+  margin-right: ${props => props.marginR || 0};
+  margin-top: ${props => props.marginT || 0};
+  margin-bottom: ${props => props.marginB || 0};  
 `
 export const CustomContainer = styled.View`
   flex-direction: ${props => props.direction || 'column'};
@@ -151,14 +157,72 @@ export const ViewValue = styled.View`
   right: 0;
 `
 export const CustomView = styled.View`
-width: ${props => props.width || '100%'};
-height: ${props => props.height || '100%'};
+  width: ${props => props.width || '100%'};
+  height: ${props => props.height || '100%'};
+  justify-content: center;
+  align-items: center;
+  flex-direction: ${props => props.direction || 'row'};
+  background-color: ${props => props.bgColor || 'transparent'};
+  margin-left: ${props => props.marginL || 0};
+  margin-right: ${props => props.marginR || 0};
+  margin-top: ${props => props.marginT || 0};
+  margin-bottom: ${props => props.marginB || 0};
+`
+export const ModalContent = styled.View`
+  width: 85%;
+  height: 50%;
+  background-color: #222;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border-width: 2;
+  border-color: #941;
+`
+export const ItemModal = styled.View`
+   width: 100%;
+   height: 99%;
+   justify-content: center;
+   align-items: center;
+   background-color: rgba(1,1,1,.7);
+   border-radius: 10px;
+`
+export const ButtonDelete = styled.TouchableOpacity`
+position: absolute;
+width: 30;
+height: 34;
+border-radius: 12;
+top: 27%;
+bottom: 0;
+left: 112%;
+right: 0;
+background-color: ${props => props.bgColor || '#333'};
 justify-content: center;
 align-items: center;
-flex-direction: ${props => props.direction || 'row'};
+border-width: 1;
+border-color: ${props => props.border || '#721'};
+`
+export const ButtonEdit = styled.TouchableOpacity`
+position: absolute;
+width: 30;
+height: 34;
+border-radius: 12;
+top: 27%;
+bottom: 0;
+left: -14.5%;
+right: 0%;
 background-color: ${props => props.bgColor || 'transparent'};
-margin-left: ${props => props.marginL || 0};
-margin-right: ${props => props.marginR || 0};
-margin-top: ${props => props.marginT || 0};
-margin-bottom: ${props => props.marginB || 0};
+justify-content: center;
+align-items: center;
+border-width: 1;
+border-color: ${props => props.border || 'transparent'};
+`
+export const CustomInput = styled.TextInput`
+width: ${props => props.width || '100%'};
+height: ${props => props.height || 50};
+background-color: ${props => props.bgColor || '#656'};
+font-size: ${props => props.fontSize || 20};
+font-weight: ${props => props.fontWeight || 600};
+color: ${props => props.color || '#ccc'};
+border-radius: ${props => props.radius || 8};
+padding-left: ${props => props.pad || 25};
 `
